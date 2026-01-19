@@ -3,7 +3,7 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 1: Basic structure and data initialization
+Version 2: Add question display functionality
 """
 
 def initialize_quiz_data():
@@ -33,8 +33,35 @@ def initialize_quiz_data():
     
     return questions, options, correct_answers
 
+
+def display_question(question_num, question_text, question_options):
+    """
+    Display a single question with its options.
+    
+    Args:
+        question_num: Current question number
+        question_text: The question to display
+        question_options: List of multiple choice options
+    """
+    print(f"\n{'='*60}")
+    print(f"Question {question_num}")
+    print(f"{'='*60}")
+    print(f"\n{question_text}\n")
+    
+    for option in question_options:
+        print(option)
+    print()
+
+
 # Initialize quiz data
 questions, options, correct_answers = initialize_quiz_data()
+total_questions = len(questions)
 
-print("Quiz data initialized successfully!")
-print(f"Total questions: {len(questions)}")
+print("\n" + "="*60)
+print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
+print("="*60)
+
+# Display all questions
+for index in range(total_questions):
+    question_number = index + 1
+    display_question(question_number, questions[index], options[index])
