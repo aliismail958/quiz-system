@@ -3,7 +3,7 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 2: Add question display functionality
+Version 3: Implement input validation and error handling
 """
 
 def initialize_quiz_data():
@@ -53,6 +53,25 @@ def display_question(question_num, question_text, question_options):
     print()
 
 
+def get_user_answer():
+    """
+    Prompt user for their answer and validate input.
+    Returns: Integer representing user's choice (1-4)
+    """
+    while True:
+        try:
+            user_input = input("Enter your answer (1, 2, 3, or 4): ").strip()
+            answer = int(user_input)
+            
+            if 1 <= answer <= 4:
+                return answer
+            else:
+                print("Invalid input! Please enter a number between 1 and 4.")
+        except ValueError:
+            print("Invalid input! Please enter a number between 1 and 4.")
+
+
+
 # Initialize quiz data
 questions, options, correct_answers = initialize_quiz_data()
 total_questions = len(questions)
@@ -60,8 +79,16 @@ total_questions = len(questions)
 print("\n" + "="*60)
 print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
 print("="*60)
+print("\nThis quiz contains 5 multiple choice questions.")
+print("Answer each question by entering the number (1-4) of your choice.")
 
-# Display all questions
+# Loop through each question
 for index in range(total_questions):
     question_number = index + 1
+    
+    # Display current question
     display_question(question_number, questions[index], options[index])
+    
+    # Get user's answer with validation
+    user_answer = get_user_answer()
+    print(f"You selected: {user_answer}")
