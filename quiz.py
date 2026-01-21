@@ -3,7 +3,7 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 3: Implement input validation and error handling
+Version 4: Add scoring system and answer checking
 """
 
 def initialize_quiz_data():
@@ -71,10 +71,23 @@ def get_user_answer():
             print("Invalid input! Please enter a number between 1 and 4.")
 
 
+def check_answer(user_answer, correct_answer):
+    """
+    Compare user's answer with correct answer.
+    
+    Args:
+        user_answer: The user's selected answer
+        correct_answer: The correct answer
+    
+    Returns: Boolean - True if correct, False otherwise
+    """
+    return user_answer == correct_answer
+
 
 # Initialize quiz data
 questions, options, correct_answers = initialize_quiz_data()
 total_questions = len(questions)
+score = 0
 
 print("\n" + "="*60)
 print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
@@ -89,6 +102,17 @@ for index in range(total_questions):
     # Display current question
     display_question(question_number, questions[index], options[index])
     
-    # Get user's answer with validation
+    # Get user's answer
     user_answer = get_user_answer()
-    print(f"You selected: {user_answer}")
+    
+    # Check if answer is correct and update score
+    if check_answer(user_answer, correct_answers[index]):
+        print("\n✓ Correct!")
+        score += 1
+    else:
+        print(f"\n✗ Incorrect. The correct answer was: {correct_answers[index]}")
+
+# Display final score
+print(f"\n{'='*60}")
+print(f"Quiz Complete! Your score: {score} out of {total_questions}")
+print(f"{'='*60}\n")
