@@ -3,7 +3,7 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 4: Add scoring system and answer checking
+Version 5: Implement results display with percentage calculation
 """
 
 def initialize_quiz_data():
@@ -84,16 +84,47 @@ def check_answer(user_answer, correct_answer):
     return user_answer == correct_answer
 
 
-# Initialize quiz data
-questions, options, correct_answers = initialize_quiz_data()
-total_questions = len(questions)
-score = 0
+def display_results(score, total_questions):
+    """
+    Display final quiz results with score and percentage.
+    
+    Args:
+        score: Number of correct answers
+        total_questions: Total number of questions in quiz
+    """
+    percentage = (score / total_questions) * 100
+    
+    print(f"\n{'='*60}")
+    print("QUIZ COMPLETED")
+    print(f"{'='*60}")
+    print(f"\nYour final score: {score} out of {total_questions}")
+    print(f"Percentage: {percentage:.1f}%")
+    
+    # Provide feedback based on performance
+    if percentage >= 80:
+        print("\nExcellent work! Outstanding performance!")
+    elif percentage >= 60:
+        print("\nGood job! You passed the quiz.")
+    elif percentage >= 40:
+        print("\nNot bad, but there's room for improvement.")
+    else:
+        print("\nKeep practicing! You'll do better next time.")
+    
+    print(f"\n{'='*60}\n")
 
+
+# Display welcome message
 print("\n" + "="*60)
 print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
 print("="*60)
 print("\nThis quiz contains 5 multiple choice questions.")
 print("Answer each question by entering the number (1-4) of your choice.")
+print("\nGood luck!\n")
+
+# Initialize quiz data
+questions, options, correct_answers = initialize_quiz_data()
+total_questions = len(questions)
+score = 0
 
 # Loop through each question
 for index in range(total_questions):
@@ -105,14 +136,12 @@ for index in range(total_questions):
     # Get user's answer
     user_answer = get_user_answer()
     
-    # Check if answer is correct and update score
+    # Check if answer is correct
     if check_answer(user_answer, correct_answers[index]):
         print("\n✓ Correct!")
         score += 1
     else:
         print(f"\n✗ Incorrect. The correct answer was: {correct_answers[index]}")
 
-# Display final score
-print(f"\n{'='*60}")
-print(f"Quiz Complete! Your score: {score} out of {total_questions}")
-print(f"{'='*60}\n")
+# Display final results
+display_results(score, total_questions)
