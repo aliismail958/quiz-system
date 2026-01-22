@@ -3,7 +3,7 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 5: Implement results display with percentage calculation
+Version 6: Improve user experience with pause prompts
 """
 
 def initialize_quiz_data():
@@ -113,35 +113,50 @@ def display_results(score, total_questions):
     print(f"\n{'='*60}\n")
 
 
-# Display welcome message
-print("\n" + "="*60)
-print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
-print("="*60)
-print("\nThis quiz contains 5 multiple choice questions.")
-print("Answer each question by entering the number (1-4) of your choice.")
-print("\nGood luck!\n")
-
-# Initialize quiz data
-questions, options, correct_answers = initialize_quiz_data()
-total_questions = len(questions)
-score = 0
-
-# Loop through each question
-for index in range(total_questions):
-    question_number = index + 1
+def run_quiz():
+    """
+    Main function to execute the quiz program.
+    Coordinates all quiz operations from start to finish.
+    """
+    # Display welcome message
+    print("\n" + "="*60)
+    print("WELCOME TO HOLTON COLLEGE DIGITAL QUIZ SYSTEM")
+    print("="*60)
+    print("\nThis quiz contains 5 multiple choice questions.")
+    print("Answer each question by entering the number (1-4) of your choice.")
+    print("\nGood luck!\n")
+    input("Press Enter to start the quiz...")
     
-    # Display current question
-    display_question(question_number, questions[index], options[index])
+    # Initialize quiz data
+    questions, options, correct_answers = initialize_quiz_data()
+    total_questions = len(questions)
+    score = 0
     
-    # Get user's answer
-    user_answer = get_user_answer()
+    # Loop through each question
+    for index in range(total_questions):
+        question_number = index + 1
+        
+        # Display current question
+        display_question(question_number, questions[index], options[index])
+        
+        # Get user's answer
+        user_answer = get_user_answer()
+        
+        # Check if answer is correct
+        if check_answer(user_answer, correct_answers[index]):
+            print("\n✓ Correct!")
+            score += 1
+        else:
+            print(f"\n✗ Incorrect. The correct answer was: {correct_answers[index]}")
+        
+        # Brief pause before next question
+        if index < total_questions - 1:
+            input("\nPress Enter to continue to the next question...")
     
-    # Check if answer is correct
-    if check_answer(user_answer, correct_answers[index]):
-        print("\n✓ Correct!")
-        score += 1
-    else:
-        print(f"\n✗ Incorrect. The correct answer was: {correct_answers[index]}")
+    # Display final results
+    display_results(score, total_questions)
 
-# Display final results
-display_results(score, total_questions)
+
+# Main program entry point
+if __name__ == "__main__":
+    run_quiz()
