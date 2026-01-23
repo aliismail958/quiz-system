@@ -3,13 +3,13 @@ Holton College Digital Quiz System
 Student: 2434779
 Module: COM4402 - Programming
 Description: Console-based quiz application for student assessment
-Version 6: Improve user experience with pause prompts
 """
 
 def initialize_quiz_data():
-    # Initialize quiz questions, options, and correct answers using appropriate data structures.
-    # Returns: Tuple containing questions list, options list, and answers list
-    
+    """
+    Initialize quiz questions, options, and correct answers using appropriate data structures.
+    Returns: Tuple containing questions list, options list, and answers list
+    """
     # List of quiz questions (strings)
     questions = [
         "What is the capital of France?",
